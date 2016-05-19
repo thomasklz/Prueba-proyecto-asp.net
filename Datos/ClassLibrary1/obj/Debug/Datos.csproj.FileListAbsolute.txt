@@ -1,0 +1,9 @@
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\bin\Debug\ClassLibrary1.dll.config
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\bin\Debug\EntityFramework.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\bin\Debug\EntityFramework.xml
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\bin\Debug\es\EntityFramework.resources.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\obj\Debug\Datos.csprojResolveAssemblyReference.cache
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\ClassLibrary1\obj\Debug\ClassLibrary1.pdb

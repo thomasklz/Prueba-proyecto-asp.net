@@ -1,0 +1,11 @@
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\Negocio.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\Negocio.pdb
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\obj\Debug\Negocio.csprojResolveAssemblyReference.cache
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\obj\Debug\Negocio.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\obj\Debug\Negocio.pdb
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\Negocio.dll.config
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\CapaDatos.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\EntityFramework.dll
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\CapaDatos.pdb
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\EntityFramework.xml
+c:\Users\Pipo\documents\visual studio 2012\Projects\Datos\Negocio\bin\Debug\es\EntityFramework.resources.dll

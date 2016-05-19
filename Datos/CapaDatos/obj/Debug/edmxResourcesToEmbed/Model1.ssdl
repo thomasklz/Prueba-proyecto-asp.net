@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pedidosModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="pedidosModelStoreContainer">
+    <EntitySet Name="Categoria" EntityType="pedidosModel.Store.Categoria" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Guia" EntityType="pedidosModel.Store.Guia" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Guia_Detalle" EntityType="pedidosModel.Store.Guia_Detalle" store:Type="Tables" store:Schema="dbo" store:Name="Guia_Detalle">
+      <DefiningQuery>SELECT 
+      [Guia_Detalle].[IdGuia] AS [IdGuia], 
+      [Guia_Detalle].[IdProducto] AS [IdProducto], 
+      [Guia_Detalle].[PrecioVenta] AS [PrecioVenta], 
+      [Guia_Detalle].[Cantidad] AS [Cantidad]
+      FROM [dbo].[Guia_Detalle] AS [Guia_Detalle]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Local" EntityType="pedidosModel.Store.Local" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orden" EntityType="pedidosModel.Store.Orden" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Orden_Detalle" EntityType="pedidosModel.Store.Orden_Detalle" store:Type="Tables" store:Schema="dbo" store:Name="Orden_Detalle">
+      <DefiningQuery>SELECT 
+      [Orden_Detalle].[IdOrden] AS [IdOrden], 
+      [Orden_Detalle].[IdProducto] AS [IdProducto], 
+      [Orden_Detalle].[PrecioCompra] AS [PrecioCompra], 
+      [Orden_Detalle].[CantidadSolicitada] AS [CantidadSolicitada], 
+      [Orden_Detalle].[CantidadRecibida] AS [CantidadRecibida], 
+      [Orden_Detalle].[Estado] AS [Estado]
+      FROM [dbo].[Orden_Detalle] AS [Orden_Detalle]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Producto" EntityType="pedidosModel.Store.Producto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Proveedor" EntityType="pedidosModel.Store.Proveedor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="pedidosModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="fk_Guia_IdLocal" Association="pedidosModel.Store.fk_Guia_IdLocal">
+      <End Role="Local" EntitySet="Local" />
+      <End Role="Guia" EntitySet="Guia" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Guia_Producto_IdGuia" Association="pedidosModel.Store.fk_Guia_Producto_IdGuia">
+      <End Role="Guia" EntitySet="Guia" />
+      <End Role="Guia_Detalle" EntitySet="Guia_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_IdCategoria" Association="pedidosModel.Store.FK_Producto_IdCategoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Proveedor" Association="pedidosModel.Store.FK_Producto_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="kf_Guia_Producto_IdProducto" Association="pedidosModel.Store.kf_Guia_Producto_IdProducto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Guia_Detalle" EntitySet="Guia_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="kf_Orden_Detalle_IdOrden" Association="pedidosModel.Store.kf_Orden_Detalle_IdOrden">
+      <End Role="Orden" EntitySet="Orden" />
+      <End Role="Orden_Detalle" EntitySet="Orden_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="kf_Orden_Detalle_IdProducto" Association="pedidosModel.Store.kf_Orden_Detalle_IdProducto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Orden_Detalle" EntitySet="Orden_Detalle" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Categoria" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Descripcion" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Guia">
+    <Key>
+      <PropertyRef Name="IdGuia" />
+    </Key>
+    <Property Name="IdGuia" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdLocal" Type="int" Nullable="false" />
+    <Property Name="Fachasalida" Type="smalldatetime" Nullable="false" />
+    <Property Name="Transportista" Type="varchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'pedidos.dbo.Guia_Detalle' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Guia_Detalle">
+    <Key>
+      <PropertyRef Name="IdGuia" />
+      <PropertyRef Name="IdProducto" />
+      <PropertyRef Name="PrecioVenta" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="IdGuia" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+    <Property Name="PrecioVenta" Type="money" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Local">
+    <Key>
+      <PropertyRef Name="IdLocal" />
+    </Key>
+    <Property Name="IdLocal" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Direccion" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Distrito" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Telefono" Type="int" />
+  </EntityType>
+  <EntityType Name="Orden">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+    </Key>
+    <Property Name="IdOrden" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FechaOrden" Type="smalldatetime" Nullable="false" />
+    <Property Name="FechaEntrada" Type="smalldatetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'pedidos.dbo.Orden_Detalle' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="Orden_Detalle">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+      <PropertyRef Name="IdProducto" />
+      <PropertyRef Name="PrecioCompra" />
+      <PropertyRef Name="CantidadSolicitada" />
+      <PropertyRef Name="CantidadRecibida" />
+      <PropertyRef Name="Estado" />
+    </Key>
+    <Property Name="IdOrden" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+    <Property Name="PrecioCompra" Type="money" Nullable="false" />
+    <Property Name="CantidadSolicitada" Type="int" Nullable="false" />
+    <Property Name="CantidadRecibida" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="varchar" Nullable="false" MaxLength="11" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdCategoria" Type="int" Nullable="false" />
+    <Property Name="IdProveedor" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="UnidadMedida" Type="char" Nullable="false" MaxLength="10" />
+    <Property Name="PrecioProveedor" Type="money" Nullable="false" />
+    <Property Name="StockActual" Type="int" Nullable="false" />
+    <Property Name="StockMinimo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Representante" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Dirección" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="Ciudad" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Cedula" Type="int" Nullable="false" />
+    <Property Name="Telefono" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="fk_Guia_IdLocal">
+    <End Role="Local" Type="pedidosModel.Store.Local" Multiplicity="1" />
+    <End Role="Guia" Type="pedidosModel.Store.Guia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="IdLocal" />
+      </Principal>
+      <Dependent Role="Guia">
+        <PropertyRef Name="IdLocal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Guia_Producto_IdGuia">
+    <End Role="Guia" Type="pedidosModel.Store.Guia" Multiplicity="1" />
+    <End Role="Guia_Detalle" Type="pedidosModel.Store.Guia_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guia">
+        <PropertyRef Name="IdGuia" />
+      </Principal>
+      <Dependent Role="Guia_Detalle">
+        <PropertyRef Name="IdGuia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_IdCategoria">
+    <End Role="Categoria" Type="pedidosModel.Store.Categoria" Multiplicity="1" />
+    <End Role="Producto" Type="pedidosModel.Store.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Proveedor">
+    <End Role="Proveedor" Type="pedidosModel.Store.Proveedor" Multiplicity="1" />
+    <End Role="Producto" Type="pedidosModel.Store.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kf_Guia_Producto_IdProducto">
+    <End Role="Producto" Type="pedidosModel.Store.Producto" Multiplicity="1" />
+    <End Role="Guia_Detalle" Type="pedidosModel.Store.Guia_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="Guia_Detalle">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kf_Orden_Detalle_IdOrden">
+    <End Role="Orden" Type="pedidosModel.Store.Orden" Multiplicity="1" />
+    <End Role="Orden_Detalle" Type="pedidosModel.Store.Orden_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orden">
+        <PropertyRef Name="IdOrden" />
+      </Principal>
+      <Dependent Role="Orden_Detalle">
+        <PropertyRef Name="IdOrden" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kf_Orden_Detalle_IdProducto">
+    <End Role="Producto" Type="pedidosModel.Store.Producto" Multiplicity="1" />
+    <End Role="Orden_Detalle" Type="pedidosModel.Store.Orden_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="Orden_Detalle">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="BuscarRegistro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dni" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="InsertarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="representante" Type="varchar" Mode="In" />
+    <Parameter Name="direccion" Type="varchar" Mode="In" />
+    <Parameter Name="ciudad" Type="varchar" Mode="In" />
+    <Parameter Name="cedula" Type="varchar" Mode="In" />
+    <Parameter Name="telefono" Type="int" Mode="In" />
+    <Parameter Name="mensaje" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SPActualizarPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idcategoria" Type="int" Mode="In" />
+    <Parameter Name="categoria" Type="varchar" Mode="In" />
+    <Parameter Name="decripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SPActualizarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdProveedor" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="Representante" Type="varchar" Mode="In" />
+    <Parameter Name="Direccion" Type="varchar" Mode="In" />
+    <Parameter Name="Ciudad" Type="varchar" Mode="In" />
+    <Parameter Name="Cedula" Type="int" Mode="In" />
+    <Parameter Name="Telefono" Type="int" Mode="In" />
+    <Parameter Name="Mensaje" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="SPCargarProvedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SPFiltrarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SPIngresarPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="categoria" Type="varchar" Mode="In" />
+    <Parameter Name="decripcion" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SPListarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+</Schema>

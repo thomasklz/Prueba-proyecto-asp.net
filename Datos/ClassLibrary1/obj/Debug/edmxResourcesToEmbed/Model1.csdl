@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pedidosModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="pedidosEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria" EntityType="pedidosModel.Categoria" />
+    <EntitySet Name="Guia" EntityType="pedidosModel.Guia" />
+    <EntitySet Name="Guia_Detalle" EntityType="pedidosModel.Guia_Detalle" />
+    <EntitySet Name="Local" EntityType="pedidosModel.Local" />
+    <EntitySet Name="Orden" EntityType="pedidosModel.Orden" />
+    <EntitySet Name="Orden_Detalle" EntityType="pedidosModel.Orden_Detalle" />
+    <EntitySet Name="Producto" EntityType="pedidosModel.Producto" />
+    <EntitySet Name="Proveedor" EntityType="pedidosModel.Proveedor" />
+    <EntitySet Name="sysdiagrams" EntityType="pedidosModel.sysdiagrams" />
+    <AssociationSet Name="FK_Producto_IdCategoria" Association="pedidosModel.FK_Producto_IdCategoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Guia_IdLocal" Association="pedidosModel.fk_Guia_IdLocal">
+      <End Role="Local" EntitySet="Local" />
+      <End Role="Guia" EntitySet="Guia" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Guia_Producto_IdGuia" Association="pedidosModel.fk_Guia_Producto_IdGuia">
+      <End Role="Guia" EntitySet="Guia" />
+      <End Role="Guia_Detalle" EntitySet="Guia_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="kf_Guia_Producto_IdProducto" Association="pedidosModel.kf_Guia_Producto_IdProducto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Guia_Detalle" EntitySet="Guia_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="kf_Orden_Detalle_IdOrden" Association="pedidosModel.kf_Orden_Detalle_IdOrden">
+      <End Role="Orden" EntitySet="Orden" />
+      <End Role="Orden_Detalle" EntitySet="Orden_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="kf_Orden_Detalle_IdProducto" Association="pedidosModel.kf_Orden_Detalle_IdProducto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Orden_Detalle" EntitySet="Orden_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Proveedor" Association="pedidosModel.FK_Producto_Proveedor">
+      <End Role="Proveedor" EntitySet="Proveedor" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <FunctionImport Name="BuscarRegistro" ReturnType="Collection(pedidosModel.BuscarRegistro_Result)">
+      <Parameter Name="dni" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertarProveedor">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="representante" Mode="In" Type="String" />
+      <Parameter Name="direccion" Mode="In" Type="String" />
+      <Parameter Name="ciudad" Mode="In" Type="String" />
+      <Parameter Name="cedula" Mode="In" Type="String" />
+      <Parameter Name="telefono" Mode="In" Type="Int32" />
+      <Parameter Name="mensaje" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(pedidosModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(pedidosModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="SPActualizarPedido">
+      <Parameter Name="idcategoria" Mode="In" Type="Int32" />
+      <Parameter Name="categoria" Mode="In" Type="String" />
+      <Parameter Name="decripcion" Mode="In" Type="String" />
+      <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPActualizarProveedor">
+      <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Representante" Mode="In" Type="String" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+      <Parameter Name="Ciudad" Mode="In" Type="String" />
+      <Parameter Name="Cedula" Mode="In" Type="Int32" />
+      <Parameter Name="Telefono" Mode="In" Type="Int32" />
+      <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPCargarProvedor" ReturnType="Collection(pedidosModel.SPCargarProvedor_Result)" />
+    <FunctionImport Name="SPFiltrarProveedor" ReturnType="Collection(pedidosModel.SPFiltrarProveedor_Result)">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPIngresarPedido">
+      <Parameter Name="categoria" Mode="In" Type="String" />
+      <Parameter Name="decripcion" Mode="In" Type="String" />
+      <Parameter Name="Mensaje" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SPListarCategoria" ReturnType="Collection(pedidosModel.SPListarCategoria_Result)" />
+  </EntityContainer>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Categoria1" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Producto" Relationship="pedidosModel.FK_Producto_IdCategoria" FromRole="Categoria" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Guia">
+    <Key>
+      <PropertyRef Name="IdGuia" />
+    </Key>
+    <Property Name="IdGuia" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdLocal" Type="Int32" Nullable="false" />
+    <Property Name="Fachasalida" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Transportista" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Local" Relationship="pedidosModel.fk_Guia_IdLocal" FromRole="Guia" ToRole="Local" />
+    <NavigationProperty Name="Guia_Detalle" Relationship="pedidosModel.fk_Guia_Producto_IdGuia" FromRole="Guia" ToRole="Guia_Detalle" />
+  </EntityType>
+  <EntityType Name="Guia_Detalle">
+    <Key>
+      <PropertyRef Name="IdGuia" />
+      <PropertyRef Name="IdProducto" />
+      <PropertyRef Name="PrecioVenta" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="IdGuia" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="PrecioVenta" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Guia" Relationship="pedidosModel.fk_Guia_Producto_IdGuia" FromRole="Guia_Detalle" ToRole="Guia" />
+    <NavigationProperty Name="Producto" Relationship="pedidosModel.kf_Guia_Producto_IdProducto" FromRole="Guia_Detalle" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Local">
+    <Key>
+      <PropertyRef Name="IdLocal" />
+    </Key>
+    <Property Name="IdLocal" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Direccion" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="Distrito" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="Telefono" Type="Int32" />
+    <NavigationProperty Name="Guia" Relationship="pedidosModel.fk_Guia_IdLocal" FromRole="Local" ToRole="Guia" />
+  </EntityType>
+  <EntityType Name="Orden">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+    </Key>
+    <Property Name="IdOrden" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaOrden" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaEntrada" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Orden_Detalle" Relationship="pedidosModel.kf_Orden_Detalle_IdOrden" FromRole="Orden" ToRole="Orden_Detalle" />
+  </EntityType>
+  <EntityType Name="Orden_Detalle">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+      <PropertyRef Name="IdProducto" />
+      <PropertyRef Name="PrecioCompra" />
+      <PropertyRef Name="CantidadSolicitada" />
+      <PropertyRef Name="CantidadRecibida" />
+      <PropertyRef Name="Estado" />
+    </Key>
+    <Property Name="IdOrden" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="PrecioCompra" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="CantidadSolicitada" Type="Int32" Nullable="false" />
+    <Property Name="CantidadRecibida" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="String" Nullable="false" MaxLength="11" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Orden" Relationship="pedidosModel.kf_Orden_Detalle_IdOrden" FromRole="Orden_Detalle" ToRole="Orden" />
+    <NavigationProperty Name="Producto" Relationship="pedidosModel.kf_Orden_Detalle_IdProducto" FromRole="Orden_Detalle" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UnidadMedida" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="true" />
+    <Property Name="PrecioProveedor" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="StockActual" Type="Int32" Nullable="false" />
+    <Property Name="StockMinimo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Categoria" Relationship="pedidosModel.FK_Producto_IdCategoria" FromRole="Producto" ToRole="Categoria" />
+    <NavigationProperty Name="Guia_Detalle" Relationship="pedidosModel.kf_Guia_Producto_IdProducto" FromRole="Producto" ToRole="Guia_Detalle" />
+    <NavigationProperty Name="Orden_Detalle" Relationship="pedidosModel.kf_Orden_Detalle_IdProducto" FromRole="Producto" ToRole="Orden_Detalle" />
+    <NavigationProperty Name="Proveedor" Relationship="pedidosModel.FK_Producto_Proveedor" FromRole="Producto" ToRole="Proveedor" />
+  </EntityType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Representante" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Dirección" Type="String" Nullable="false" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="Ciudad" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Cedula" Type="Int32" Nullable="false" />
+    <Property Name="Telefono" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="pedidosModel.FK_Producto_Proveedor" FromRole="Proveedor" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Producto_IdCategoria">
+    <End Role="Categoria" Type="pedidosModel.Categoria" Multiplicity="1" />
+    <End Role="Producto" Type="pedidosModel.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Guia_IdLocal">
+    <End Role="Local" Type="pedidosModel.Local" Multiplicity="1" />
+    <End Role="Guia" Type="pedidosModel.Guia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Local">
+        <PropertyRef Name="IdLocal" />
+      </Principal>
+      <Dependent Role="Guia">
+        <PropertyRef Name="IdLocal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Guia_Producto_IdGuia">
+    <End Role="Guia" Type="pedidosModel.Guia" Multiplicity="1" />
+    <End Role="Guia_Detalle" Type="pedidosModel.Guia_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guia">
+        <PropertyRef Name="IdGuia" />
+      </Principal>
+      <Dependent Role="Guia_Detalle">
+        <PropertyRef Name="IdGuia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kf_Guia_Producto_IdProducto">
+    <End Role="Producto" Type="pedidosModel.Producto" Multiplicity="1" />
+    <End Role="Guia_Detalle" Type="pedidosModel.Guia_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="Guia_Detalle">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kf_Orden_Detalle_IdOrden">
+    <End Role="Orden" Type="pedidosModel.Orden" Multiplicity="1" />
+    <End Role="Orden_Detalle" Type="pedidosModel.Orden_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orden">
+        <PropertyRef Name="IdOrden" />
+      </Principal>
+      <Dependent Role="Orden_Detalle">
+        <PropertyRef Name="IdOrden" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kf_Orden_Detalle_IdProducto">
+    <End Role="Producto" Type="pedidosModel.Producto" Multiplicity="1" />
+    <End Role="Orden_Detalle" Type="pedidosModel.Orden_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="Orden_Detalle">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Proveedor">
+    <End Role="Proveedor" Type="pedidosModel.Proveedor" Multiplicity="1" />
+    <End Role="Producto" Type="pedidosModel.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="BuscarRegistro_Result">
+    <Property Type="Int32" Name="IdCategoria" Nullable="false" />
+    <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SPCargarProvedor_Result">
+    <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Representante" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Dirección" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="Ciudad" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="Cedula" Nullable="false" />
+    <Property Type="Int32" Name="Telefono" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SPFiltrarProveedor_Result">
+    <Property Type="Int32" Name="IdProveedor" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Representante" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Dirección" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="Ciudad" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="Cedula" Nullable="false" />
+    <Property Type="Int32" Name="Telefono" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SPListarCategoria_Result">
+    <Property Type="Int32" Name="IdCategoria" Nullable="false" />
+    <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="100" />
+  </ComplexType>
+</Schema>
